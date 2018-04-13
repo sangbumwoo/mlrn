@@ -1,0 +1,78 @@
+<div class="row w3-margin-top"  ng-if="vm.appContext.user.role === 'admin'">
+    <div class="col-lg-6"></div>
+    <div class="col-lg-6 text-right">
+        <button type="button" style="margin-left: 20px;" class="w3-button w3-green" ui-sref="board.save({'articleType': $stateParams.articleType, 'articleId':null})">
+            New
+        </button>
+    </div>
+</div>
+
+<div ng-if="vm.sub_menu.listStyle==='tab'" class="w3-padding-16">
+    <div class="w3-bar">
+        <button ng-repeat="item in vm.items" style="border-radius: 10px 10px 0 0; margin-left:4px; padding: 4px 24px;" 
+        class="w3-white w3-border w3-border-mlrngreen w3-bar-item w3-btn"
+            ng-class="{'w3-mlrngreen' : vm.tabId===item._id }" ng-click="vm.item = item; vm.tabId = item._id">{{item.title}}</button>
+    </div>
+    <div ng-if="vm.item" class="w3-html-editor" style="border-top:1px solid #558139; margin-top:-1px">
+        <p ng-bind-html="vm.trustAsHtml(vm.item.content)" style="font-size: small; margin: 16px 8px">
+        </p>
+        <div class="w3-row">
+            <div ng-if="vm.appContext.user.role === 'admin'" class="w3-right">
+                <button class="w3-button" ui-sref="board.save( {'articleId':vm.item._id })">Edit</button>
+                <button class="w3-button w3-red" ng-click="vm.delete(vm.item)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-if="vm.sub_menu.listStyle=='list'">
+
+    <div class="w3-row w3-border-bottom w3-padding" ng-repeat="item in vm.items" ui-sref="board.view({'articleType': item.articleType, 'articleId':item._id})" style="cursor:pointer">
+        <div class="w3-col m2" style="padding-right:20px">
+                <div ng-if="item.images[0].filename">
+                    <img class="w3-padding-small" ng-src="{{vm.appContext.apiUrl + '/files/' + item.images[0].filename}}" alt="" style="width: 100%; max-width:100%;">
+                </div>
+                <div ng-if="!item.images[0].filename">
+                    <img ng-if="item.files.length>0" class="w3-padding-small" ng-src="{{vm.appContext.apiUrl + '/files/' + item.files[0].thumbnail}}"
+                        alt="" style="width: 100%; max-width:100%;">
+                </div>
+        </div>
+        <div class="w3-col m10">
+                <div>{{item.date | date : "yyyy.MM.dd"}}</div>
+                <div ng-if="vm.sub_menu.urlRequired" class="w3-text-gray w3-margin-top">{{item.url}}</div>
+                <div class="w3-text-gray">{{item.title}}</div>
+                <div ng-if="vm.sub_menu.showContentInList" style="text-align: justify;height: 1.0em;line-height: 1.0em;overflow:hidden; font-size:1em; margin-top: 6px">
+                    <div ng-bind-html="vm.trustAsHtml(item.content)"></div>
+                </div>
+                <div class="w3-text-green">[Read More]</div>
+        </div>
+    </div>
+
+</div>
+
+<div  ng-if="vm.sub_menu.listStyle=='table'">
+    <table class="w3-table w3-bordered" ng-if="vm.items.length">
+        <tr>
+            <td class="w3-center">No.</td>
+            <td class="w3-center">Title</td>
+            <td class="w3-center">Date</td>
+        </tr>
+        <tr ng-repeat="item in vm.items" ui-sref="board.view({'articleType': item.articleType, 'articleId':item._id})" style="cursor:pointer">
+            <td style="padding: 10px 30px; white-space:nowrap;">
+                {{ vm.pagination.itemsPerPage * ( vm.pagination.currentPage - 1 ) + ($index + 1) }}
+            </td>
+            <td style="width: 100%">                
+                <div ng-if="vm.sub_menu.urlRequired" class="w3-text-gray w3-margin-top">{{item.url}}</div>
+                <div class="w3-text-gray">{{item.title}}</div>
+            </td>
+            <td style="padding: 10px 30px; white-space:nowrap;">
+                <div>{{item.date | date : "yyyy.MM.dd"}}</div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<paging ng-if="vm.sub_menu.listStyle!=='tab'" page="vm.pagination.currentPage" paging-action="vm.load(page)" page-size="vm.pagination.itemsPerPage" total="vm.pagination.totalItems"
+    show-prev-next="true" show-first-last="true">
+</paging>

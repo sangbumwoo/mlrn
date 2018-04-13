@@ -1,0 +1,79 @@
+<div class="w3-row w3-border-bottom">
+    <div class="w3-col m2 w3-padding">
+        <b>Title</b>
+    </div>
+    <div class="w3-col m10 w3-padding">
+        {{vm.item.title}}
+    </div>
+</div>
+
+<div class="w3-row w3-border-bottom">
+    <div class="w3-col m2 w3-padding">
+        <b>Date</b>
+    </div>
+    <div class="w3-col m10 w3-padding">
+        {{vm.item.date | date : "yyyy.MM.dd"}}
+    </div>
+</div>
+
+<div class="w3-row w3-border-bottom">
+    <div class="w3-col m2 w3-padding">
+        <b>Content</b>
+    </div>
+    <div class="w3-col m10 w3-padding">
+        <div ng-bind-html="vm.trustAsHtml(vm.item.content)"></div>
+    </div>
+</div>
+
+<div class="w3-hide w3-row w3-border-bottom">
+    <div class="w3-col m2 w3-padding">
+        <b>Images</b>
+    </div>
+    <div class="w3-col m10 w3-padding">
+        <div class="w3-row" ng-repeat="file in vm.item.images">
+            <div class="w3-col m2 w3-padding">
+                <img ng-src="{{vm.config.apiUrl + '/files/' + file.filename}}" alt="" style="max-height:25px;">
+            </div>
+            <div class="w3-col m8 w3-padding">
+                <a class="w3-padding-small w3-small" ng-href="{{ vm.config.apiUrl + '/files/' + file.filename }}" target="_blank">
+                    {{file.originalname}}
+                </a>
+            </div>
+            <div class="w3-col m2 w3-padding">
+                <a class="w3-button w3-small w3-padding-small" ng-href="{{ vm.config.apiUrl + '/files/' + file.filename }}" download="download">Download
+                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="w3-hide w3-row w3-border-bottom">
+    <div class="w3-col m2 w3-padding">
+        <b>Files</b>
+    </div>
+    <div class="w3-col m10 w3-padding">
+        <div class="w3-row" ng-repeat="file in vm.item.files">
+            <div class="w3-col m2 w3-padding">
+                <img ng-src="{{vm.config.apiUrl + '/files/' + file.filename}}" alt="" style="max-height:25px;">
+            </div>
+            <div class="w3-col m8 w3-padding">
+                <a class="w3-padding-small w3-small" ng-href="{{ vm.config.apiUrl + '/files/' + file.filename }}" target="_blank">
+                    {{file.originalname}}
+                </a>
+            </div>
+            <div class="w3-col m2 w3-padding">
+                <a class="w3-button w3-small w3-padding-small" ng-href="{{ vm.config.apiUrl + '/files/' + file.filename }}" download="download">Download
+                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="w3-right-align w3-padding">
+    <button class="w3-button" ui-sref="board.list()">List</button>
+    <button class="w3-button" ng-if="vm.appContext.user.role === 'admin'" ui-sref="board.save( {'articleType':$stateParams.articleType, 'articleId':$stateParams.articleId })">Edit
+    </button>
+    <button class="w3-button w3-red" ng-if="vm.appContext.user.role === 'admin'" ng-click="vm.delete()">Delete</button>
+</div>

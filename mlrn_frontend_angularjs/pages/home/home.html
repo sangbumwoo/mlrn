@@ -1,0 +1,151 @@
+<!-- main banner -->
+<div style="height: 360px; overflow:hidden" id="bannerCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+    <ol class="carousel-indicators">
+        <li class="w3-circle" ng-repeat="slide in vm.slides track by $index" data-target="#bannerCarousel" data-slide-to="{{$index}}"
+            ng-class="{active:!$index}"></li>
+    </ol>
+
+    <div class="carousel-inner">
+        <div class="item" ng-repeat="slide in vm.slides track by $index" ng-class="{active:!$index}">
+            <div class="w3-row w3-mlrngreen">
+                <div class="w3-col m9">
+                    <img ng-src="{{vm.appContext.apiUrl + '/files/' + slide.images[0].filename}}" alt="slide" style="width:100%;">
+                </div>
+                <div class="w3-col m3 w3-padding-large">
+                    <h3>{{slide.title}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="left carousel-control" data-target="#bannerCarousel" data-slide="prev" style="cursor:pointer">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" data-target="#bannerCarousel" data-slide="next" style="cursor:pointer">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+    </a>
+
+</div>
+
+<!-- contents links -->
+<table class="w3-hide-small w3-margin-top" style="width:100%; table-layout: fixed;">
+    <tr ng-repeat="row in vm.contents">
+        <td ng-repeat="cell in row" class="w3-border w3-padding" style="width:50%; vertical-align:top">
+            <div>
+                <div class="w3-right">
+                    <a class="w3-text-gray w3-opacity" ui-sref="board.list({'main_menu':cell.main_menu, 'sub_menu':cell.sub_menu})">
+                        <i class="far fa-plus-square"></i>
+                    </a>
+                </div>
+                <div>
+                    <strong>{{cell.header}}</strong>
+                </div>
+            </div>
+
+            <div ng-repeat="item in cell.list" style="overflow: hidden;text-overflow: ellipsis">
+                <a href="" style="white-space:nowrap;overflow: hidden;" ui-sref="board.view({'main_menu':cell.main_menu, 'sub_menu':cell.sub_menu, 'articleId': item._id})">{{item.title}}</a>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div class="w3-hide-large w3-hide-medium" ng-repeat="row in vm.contents">
+    <div ng-repeat="cell in row" class="w3-border w3-padding" style="margin:4px 0;">
+            <div>
+                <div class="w3-right">
+                    <a class="w3-text-gray w3-opacity" ui-sref="board.list({'main_menu':cell.main_menu, 'sub_menu':cell.sub_menu})">
+                        <i class="far fa-plus-square"></i>
+                    </a>
+                </div>
+                <div>
+                    <strong>{{cell.header}}</strong>
+                </div>
+            </div>
+            
+            <div ng-repeat="item in cell.list" style="overflow: hidden;text-overflow: ellipsis">
+                <a href="" style="white-space:nowrap;overflow: hidden;" ui-sref="board.view({'main_menu':cell.main_menu, 'sub_menu':cell.sub_menu, 'articleId': item._id})">{{item.title}}</a>
+            </div>
+    </div>
+</div>
+
+<!-- menu links -->
+
+<div class="w3-row w3-margin-top">
+    <div ng-repeat="item in vm.menus" class="w3-col m3 w3-padding-small w3-center w3-border w3-border-white w3-mlrngreen w3-container">
+        <div ng-if="item.isPage" ui-sref="board.page({main_menu: item.main_menu,sub_menu:item.sub_menu})" style="cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
+            {{item.title}}
+        </div>
+        <div ng-if="!item.isPage" ui-sref="board.list({main_menu: item.main_menu,sub_menu:item.sub_menu})" style="cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
+            {{item.title}}
+        </div>
+
+    </div>
+</div>
+
+
+<!-- <table class="w3-margin-top" style="width:100%">
+    <tr>
+        <td ng-repeat="item in vm.menus" style="padding:1px; cursor:pointer; width:25%;border:2px solid #fff">
+            <div ng-if="item.isPage" class="w3-mlrngreen w3-center w3-padding" ui-sref="board.page({main_menu: item.main_menu,sub_menu:item.sub_menu})">
+                {{item.title}}
+            </div>
+            <div ng-if="!item.isPage" class="w3-mlrngreen w3-center w3-padding" ui-sref="board.list({main_menu: item.main_menu,sub_menu:item.sub_menu})">
+                {{item.title}}
+            </div>
+        </td>
+    </tr>
+</table> -->
+
+<!-- 
+<table class="w3-margin-top" style="width:100%">
+    <tr>
+        <td ng-repeat="item in vm.menus" style="padding:1px; cursor:pointer; width:25%;border:2px solid #fff">
+            <div ng-if="item.isPage" class="w3-mlrngreen w3-center w3-padding" ui-sref="board.page({main_menu: item.main_menu,sub_menu:item.sub_menu})">
+                {{item.title}}
+            </div>
+            <div ng-if="!item.isPage" class="w3-mlrngreen w3-center w3-padding" ui-sref="board.list({main_menu: item.main_menu,sub_menu:item.sub_menu})">
+                {{item.title}}
+            </div>
+        </td>
+    </tr>
+</table> -->
+
+<!-- <div class="w3-row">
+    <div class="w3-col w3-padding-small w3-center w3-border w3-border-white w3-green w3-container" style="width:25%">
+        25%
+    </div>
+    <div class="w3-col w3-padding-small w3-center w3-border w3-border-white w3-green w3-container" style="width:25%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
+        abcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+    </div>
+    <div class="w3-col w3-padding-small w3-center w3-border w3-border-white w3-green w3-container" style="width:25%">
+        25%
+    </div>
+    <div class="w3-col w3-padding-small w3-center w3-border w3-border-white w3-green w3-container" style="width:25%">
+        25%
+    </div>
+</div> -->
+
+
+
+
+<!-- link banner -->
+<!-- <slick lazy-load="ondemand" init-onload="true" data="vm.links" dots="false" infinite="true" speed="300" slides-to-show="5" autoplay=true autoplaySpeed=2000
+    slides-to-scroll="1" touch-move="false" class="w3-margin-top" style="margin-right:1px;">
+    <div ng-repeat="item in vm.links" class="w3-border w3-padding-small" style="margin:0 4px; overflow:hidden;">
+        <a href="" ng-href="{{item.url}}"><img class="w3-grayscale-max" ng-src="{{vm.appContext.apiUrl + '/files/' + item.images[0].filename}}" alt="" style="height:30px; display: block;margin: 4px auto;"></a>
+    </div>
+</slick> -->
+
+
+<div style="margin: 0 0px">
+    <slick lazy-load="ondemand" init-onload="true" data="vm.links" dots="false" infinite="true" speed="300" slides-to-show="5" autoplay=true autoplaySpeed=2000
+        slides-to-scroll="1" touch-move="false" class="w3-margin-top" style="margin-right:1px;">
+        <div ng-repeat="item in vm.links" class="w3-border w3-padding-small" style="margin:0 4px; overflow:hidden;">
+            <a href="" ng-href="{{item.url}}" target="_blank">
+                <img class="w3-grayscale-max" ng-src="{{vm.appContext.apiUrl + '/files/' + item.images[0].filename}}" alt="" style="max-width:100%; height:30px; margin:0 auto">
+            </a>
+        </div>
+    </slick>
+</div>

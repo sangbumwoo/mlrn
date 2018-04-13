@@ -1,0 +1,33 @@
+<!-- <div class="w3-section" ng-if="vm.appContext.user.role === 'admin'" class="w3-row">
+    <div class="w3-col w3-right" style="width:80px">
+        <button class="w3-button w3-block w3-border" ng-click="vm.saveHeaerText()">Save</button>
+    </div>
+    <div class="w3-rest">
+        <input type="text" class="w3-input w3-border" ng-model="vm.headerText">
+    </div>
+</div>
+<h4 ng-if="vm.appContext.user.role !== 'admin' && vm.sub_menu.showHeader">{{vm.headerTextDisplay}}</h4> -->
+
+<div class="w3-section" ng-if="vm.appContext.user.role === 'admin' && vm.isHeaderEditing" class="w3-row">
+    <div class="w3-col w3-right" style="width:80px">
+        <button class="w3-button w3-block w3-border" ng-click="vm.toggleEditHeaderText()">Cancel</button>
+    </div>
+    <div class="w3-col w3-right" style="width:80px">
+        <button class="w3-button w3-green w3-block w3-border" ng-click="vm.saveHeaerText()">Save</button>
+    </div>
+    <div class="w3-rest">
+        <input type="text" class="w3-input w3-border" ng-model="vm.headerText">
+    </div>
+</div>
+
+<div class="w3-section" class="w3-row">
+    <div class="w3-col w3-right" style="width:80px; margin-left:10px" ng-if="vm.appContext.user.role === 'admin' && !vm.isHeaderEditing">
+        <button class="w3-button w3-block w3-border" ng-click="vm.toggleEditHeaderText()">Edit</button>
+    </div>
+    <div class="w3-rest">
+        <!-- <input type="text" class="w3-input w3-border" ng-model="vm.headerText"> -->
+        <p style="font-family:Georgia, 'Times New Roman', Times, serif; font-size:1.2em; border-bottom:2px solid lightgray"><b>{{vm.headerTextDisplay}} &nbsp; </b></p>
+    </div>
+</div>
+
+<!-- <h4 ng-if="vm.appContext.user.role !== 'admin'">{{vm.headerTextDisplay}}</h4> -->

@@ -1,0 +1,47 @@
+<div class="w3-section" ng-if="vm.appContext.user.role === 'admin' && vm.isHeaderEditing" class="w3-row">
+  <div class="w3-col w3-right" style="width:80px">
+    <button class="w3-button w3-block w3-border" ng-click="vm.toggleEditHeaderText()">Cancel</button>
+  </div>
+  <div class="w3-col w3-right" style="width:80px">
+    <button class="w3-button w3-green w3-block w3-border" ng-click="vm.saveHeaerText()">Save</button>
+  </div>
+  <div class="w3-rest">
+    <input type="text" class="w3-input w3-border" ng-model="vm.headerText">
+  </div>
+</div>
+
+<div ng-if="vm.appContext.user.role === 'admin' && !vm.isHeaderEditing" class="w3-section" class="w3-row">
+  <div class="w3-col w3-right" style="width:80px; margin-left:10px" ng-if="vm.appContext.user.role === 'admin' && !vm.isHeaderEditing">
+    <button class="w3-button w3-block w3-border" ng-click="vm.toggleEditHeaderText()">Edit</button>
+  </div>
+  <div class="w3-rest w3-border" >
+    <p ng-if="vm.headerTextDisplay" 
+    style="font-family:Georgia, 'Times New Roman', Times, serif; font-size:1.2em">
+      <b>{{vm.headerTextDisplay}}</b>
+    </p>
+    <p ng-if="!vm.headerTextDisplay" 
+      style="font-family:Georgia, 'Times New Roman', Times, serif; font-size:1.2em;">
+      Not specified
+    </p>
+  </div>
+</div>
+
+<!-- <p ng-if="!vm.appContext.user && vm.headerTextDisplay" 
+style="padding:16px 0;color:green; font-family:Arial, Helvetica, sans-serif;font-size:24px; border-bottom:2px solid lightgray">
+  {{vm.headerTextDisplay}}
+</p> -->
+<div ng-if="vm.sub_menu.isTabList">
+  <p ng-if="!vm.appContext.user && vm.headerTextDisplay" 
+  style="padding:16px 0 0 0;color:green; font-family:Arial, Helvetica, sans-serif;font-size:24px;">
+    {{vm.headerTextDisplay}}
+  </p>
+</div>
+<div ng-if="!vm.sub_menu.isTabList">
+  <p ng-if="!vm.appContext.user && vm.headerTextDisplay" style="padding:16px 0;color:green; font-family:Arial, Helvetica, sans-serif;font-size:24px; border-bottom:2px solid lightgray">
+    {{vm.headerTextDisplay}}
+  </p>
+</div>
+
+
+
+<div ui-view style="min-height: 300px; margin-top:0px;"></div>

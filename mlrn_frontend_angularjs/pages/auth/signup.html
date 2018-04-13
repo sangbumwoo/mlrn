@@ -1,0 +1,27 @@
+<div style="min-height: 500px;">
+    <div style="width:400px; background: #eee; margin:50px auto; border: 2px solid #ddd">
+        <div style="padding: 20px;">
+            <h3 class="text-center">Sign-up</h3>
+            <form>
+                <div class="form-group">
+                    <label for="email">Role</label>
+                    <select name="singleSelect" class="form-control" ng-model="vm.data.role" ng-change="vm.roleChange(vm.data);">
+                        <option value="admin">admin</option>
+                        <!-- <option value="manager">manager</option> -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input ng-model="vm.data.email" type="text" class="form-control" id="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input ng-model="vm.data.password" type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+            </form>
+            <div class="text-right">
+                <button class="w3-button w3-green w3-block" ng-click="vm.signup(vm.data)">Sign-up</button>
+            </div>
+        </div>
+    </div>
+</div>
